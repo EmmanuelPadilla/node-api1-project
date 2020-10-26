@@ -72,8 +72,29 @@ app.put("/users/:id", (req, res) =>{
 
     if (indexOfUser !== -1){
         user[indexOfUser] = { id, name, bio}
+        res.status(200).json({id, name, bio})
+    } else {
+        res.status(404).json({ message: "No User with that ID"})
+
     }
 })
+
+//DELTE USER
+app.delete("/users/:id", (req, res) =>{
+const { id } = req.params
+try{
+    if ((users) = users.find((user) => user.id ===id)) {
+        res.status(404).json({ message: "not found"})
+    } else {
+        users = users.filter((user) => user.id !== id)
+        res.status(200).json({ message: "deleted"})
+    }
+
+} catch (error) {
+    res.status(500).json ({message: "something went wrong"})
+}
+})
+
 
 
 
